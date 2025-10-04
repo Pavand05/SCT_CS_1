@@ -1,17 +1,12 @@
-1️⃣ Image Pixel Cipher
+# Task 1 — Caesar Cipher
 
-Description:
-A web-based tool to encrypt/decrypt images at the pixel level using HTML, CSS, and JavaScript. Supports operations like color inversion, pixel shuffling, channel swaps, and arithmetic transformations.
+**File:** caesar_cipher.html
 
-Features:
-Add, multiply, XOR pixel values
-Invert colors
-Swap color channels (R↔G, R↔B, G↔B, rotate R→G→B)
-Shuffle pixels with a seeded random generator
-Swap random pixel pairs deterministically
+A simple web tool to encrypt and decrypt messages using the Caesar Cipher. Supports:
 
-Export/import encryption parameters as JSON
+- Encrypt & Decrypt with a chosen shift (0–25)  
+- Brute-force decryption to try all shifts  
+- Preserves non-alphabetic characters  
 
-Run:
-Open image_pixel_cipher.html
- in a browser or run live server in any IDE.
+**How to use:**  
+Open `caesar_cipher.html` in a browser, enter your message, select a shift, and click Encrypt/Decrypt or Brute Force.
