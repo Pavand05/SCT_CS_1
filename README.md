@@ -14,4 +14,4 @@ Export/import encryption parameters as JSON
 
 Run:
 Open image_pixel_cipher.html
- in a browser.
+ in a browser or run live server in any IDE.
