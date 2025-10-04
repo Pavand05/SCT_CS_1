@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>🔐 Caesar Cipher — Web Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f1724;
+      color: #e6eef8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 650px;
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      color: #7c3aed;
+    }
+    textarea, input, button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    button {
+      background: linear-gradient(90deg,#7c3aed,#06b6d4);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    button:hover { opacity: 0.85; }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    #result {
+      background: #0b1220;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Caesar Cipher</h1>
+    <textarea id="message" placeholder="Enter your message"></textarea>
+    <label>Shift value (0–25):</label>
+    <input type="number" id="shift" min="0" max="25" value="3">
+    
+    <div class="btn-group">
+      <button onclick="runCipher('encrypt')">Encrypt</button>
+      <button onclick="runCipher('decrypt')">Decrypt</button>
+      <button onclick="bruteForce()">Brute Force</button>
+      <button onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function mod(n, m) { return ((n % m) + m) % m; }
+
+    function caesar(text, shift, mode) {
+      const s = mod((mode === 'encrypt' ? shift : -shift), 26);
+      let out = '';
+      for (let ch of text) {
+        const code = ch.charCodeAt(0);
+        if (code >= 65 && code <= 90) {
+          out += String.fromCharCode(65 + mod(code - 65 + s, 26));
+        } else if (code >= 97 && code <= 122) {
+          out += String.fromCharCode(97 + mod(code - 97 + s, 26));
+        } else {
+          out += ch;
+        }
+      }
+      return out;
+    }
+
+    function runCipher(mode) {
+      const text = document.getElementById('message').value;
+      const shift = parseInt(document.getElementById('shift').value) || 0;
+      const output = caesar(text, shift, mode);
+      document.getElementById('result').textContent = output;
+    }
+
+    function bruteForce() {
+      const text = document.getElementById('message').value;
+      let results = "";
+      for (let i = 1; i < 26; i++) {
+        results += `Shift ${i}: ${caesar(text, i, "decrypt")}\n`;
+      }
+      document.getElementById('result').textContent = results;
+    }
+
+    function clearAll() {
+      document.getElementById('message').value = "";
+      document.getElementById('shift').value = 3;
+      document.getElementById('result').textContent = "";
+    }
+  </script>
+</body>
+</html>
